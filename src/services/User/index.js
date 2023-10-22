@@ -1,9 +1,10 @@
 import { GET_USER_DETAILS, LOGIN_USER } from "../Apis";
 
 export const getUserDetails = async () => {
-  const url = `${BASE_URL}/getUser`;
   const response = await fetch(GET_USER_DETAILS, {
+    method : 'GET',
     headers: {
+      "content-Type":"application/json",
       Authorization: `Bearer ${localStorage.getItem("erp-token")}`,
     },
   });

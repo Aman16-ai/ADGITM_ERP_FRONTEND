@@ -4,7 +4,9 @@ import { getUserDetails } from "../../services/User";
 
 export const userDetailsThunk = createAsyncThunk('userDetails/userDetails',async(thunkApi) => {
     try {
+        console.log('running thunk')
         const result = await getUserDetails()
+        console.log('thunk result ---->',result)
         return result
     }
     catch(err) {

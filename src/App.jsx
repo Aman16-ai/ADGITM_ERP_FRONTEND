@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import img from "./static/img1.jpeg"
 import Login from './page/login'
-import { useSelector } from 'react-redux';
-import { selectUserData } from './store/slice/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsAuthenticated, selectUserData, setIsAuthenticated, userDetailsThunk } from './store/slice/userSlice';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -10,6 +10,8 @@ import {
   Link,
 } from "react-router-dom";
 import Home from './page/Home';
+import { getUserDetails } from './services/User';
+import PrivateRoute from './components/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -22,11 +24,27 @@ const router = createBrowserRouter([
   },
 ]);
 function App() {
-  
-  const {userData} = useSelector(selectUserData)
+  const dispatch = useDispatch()
+  const userData = useSelector(selectUserData)
+  const isAuthenticated = useSelector(selectIsAuthenticated)
+
+  const fun = async () => {
+    return await getUserDetails()
+  }
+  useEffect(() => {
+    const token = localStorage.getItem("erp-token")
+    if(token === undefined || token === null || token === "" || token === " ") {
+      dispatch(setIsAuthenticated(false))
+    }
+    else {
+      dispatch(userDetailsThunk())
+    }
+    fun()
+  },[])
   useEffect(()=> {
     console.log('user data -------> ',userData)
-  },[userData])
+    console.log('isAuthenticated',isAuthenticated)
+  },[isAuthenticated])
   return (
   
     <>

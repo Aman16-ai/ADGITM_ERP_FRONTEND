@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import img from "../static/img1.jpeg"
 import { loginUser } from '../services/User'
+import { useNavigate } from 'react-router-dom'
 export default function Login() {
+  const navigate = useNavigate()
     const [credentails,setCredentials] = useState({
         'username' : "",
         'password' : ""
@@ -12,6 +14,7 @@ export default function Login() {
             const result = await loginUser(credentails)
             console.log('login result -------> ',result)
             localStorage.setItem('erp-token',result?.access)
+            navigate("/")
             window.location.reload()
         }
         catch(err) {
