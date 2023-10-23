@@ -12,11 +12,28 @@ import {
 import Home from './page/Home';
 import { getUserDetails } from './services/User';
 import PrivateRoute from './components/PrivateRoute';
+import Layout from './components/Layout';
+import CreateMaintenance from './page/Maintenance Mangement/CreateMaintenance';
+import AllMaintenance from './page/Maintenance Mangement/AllMaintenance';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home/>
+    element: <Layout/>,
+    children:[
+      {
+        index : true,
+        element : <Home/>
+      },
+      {
+        path : "/createMaintenance",
+        element : <CreateMaintenance/>
+      },
+      {
+        path : "/allMaintenance",
+        element : <AllMaintenance/>
+      }
+    ]
   },
   {
     path: "login",
