@@ -32,25 +32,25 @@ function SideNav() {
       {/* <hr className="my-4 border-t border-gray-300" /> */}
       <ul className="menu-list flex flex-col items-center justify-center">
         <li>
-        <NavLink className={({isActive}) => `${isActive ? "text-purple-700" : "text-black"}`} to={"/createMaintenance"}> <div className={`mt-10 flex items-center ${isHovered ? "w-[200px]" : "w-auto"}`}>
+        <NavLink className={({isActive}) => `${isActive ? " text-blue-700" : "text-black"}`} to={"/createMaintenance"}> <div className={`mt-10 flex items-center ${isHovered ? "w-[200px]" : "w-auto"}`}>
         <AddCircleOutlineOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
-        <p className='ml-3'>{`${isHovered ? "Create Maintenance" : ""}`}</p>
+        <p className='ml-3 font-semibold'>{`${isHovered ? "Create Maintenance" : ""}`}</p>
         </div>
         </NavLink>
         </li>
         
         <li>
-        <NavLink className={({isActive}) => `${isActive ? "text-purple-700" : "text-black"}`} to={"/allMaintenance"}> <div className={`mt-6 flex items-center  ${isHovered ? "w-[200px]" : "w-auto"}`}>
+        <NavLink className={({isActive}) => `${isActive ? "text-blue-700" : "text-black"}`} to={"/allMaintenance"}> <div className={`mt-6 flex items-center  ${isHovered ? "w-[200px]" : "w-auto"}`}>
         <EngineeringOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
-        <p className='ml-3'>{`${isHovered ? "All Maintenance" : ""}`}</p>
+        <p className='ml-3 font-semibold'>{`${isHovered ? "All Maintenance" : ""}`}</p>
         </div>
         </NavLink>
         </li>
 
         <li>
-        <NavLink className={({isActive}) => `${isActive ? "text-purple-700" : "text-black"}`} to={"/allMaintenance"}> <div className={`mt-6 flex items-center  ${isHovered ? "w-[200px]" : "w-auto"}`}>
+        <NavLink className={({isActive}) => `${isActive ? "text-purple-700" : "text-black"}`} to={"/expenses"}> <div className={`mt-6 flex items-center  ${isHovered ? "w-[200px]" : "w-auto"}`}>
         <AccountBalanceWalletOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
-        <p className='ml-3'>{`${isHovered ? "Maintenance Expenses" : ""}`}</p>
+        <p className='ml-3 font-semibold'>{`${isHovered ? "Maintenance Expenses" : ""}`}</p>
         </div>
         </NavLink>
         </li>
