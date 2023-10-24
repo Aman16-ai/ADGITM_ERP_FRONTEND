@@ -10,7 +10,7 @@ export default function MaintenanceIssueStatusContainer() {
     dispatch(maintenanceStatusAndCountThunk())
   },[])
   return (
-    <div className='w-auto h-auto flex flex-col mt-3 p-2 rounded-md'>
+    <div className='w-auto h-auto flex flex-col mt-3 p-5 shadow-2xl rounded-md'>
       <h3 className='ml-4 font-semibold text-xl'>Maintenance Status</h3>
       <div className='w-full h-auto flex'>
         {
