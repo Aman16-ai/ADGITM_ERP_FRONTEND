@@ -4,13 +4,14 @@ import PauseCircleOutlinedIcon from '@mui/icons-material/PauseCircleOutlined';
 import AssignmentTurnedInOutlinedIcon from '@mui/icons-material/AssignmentTurnedInOutlined';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import LoopIcon from '@mui/icons-material/Loop';
+import FunctionsOutlinedIcon from '@mui/icons-material/FunctionsOutlined';
 export default function MaintenanceIssueStatusCard({status,count}) {
   const getIconOrColor = (color) => {
     if(status === 'pending') {
       return color ? 'bg-yellow-300' : <PendingActionsOutlinedIcon fontSize='large'/>
     }
-    else if(status === 'progress') {
-      return color ? 'bg-blue-400' : <LoopIcon fontSize='large'/>
+    else if(status === 'total') {
+      return color ? 'bg-blue-500' : <FunctionsOutlinedIcon fontSize='large'/>
     }
     else if(status === 'completed') {
       return color ? 'bg-green-500' : <AssignmentTurnedInOutlinedIcon fontSize='large'/>
