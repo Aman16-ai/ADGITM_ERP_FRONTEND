@@ -23,11 +23,11 @@ export default function MaintenanceIssueTable(props) {
         <TableBody>
           {props?.data.map((row) => (
             <TableRow
-              key={row.maintenanceType}
+              key={row.maintenanceType.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.maintenanceType}
+                {row.maintenanceType.name}
               </TableCell>
               <TableCell align="center">{row.description}</TableCell>
               <TableCell align="center">{row.timestamp}</TableCell>
