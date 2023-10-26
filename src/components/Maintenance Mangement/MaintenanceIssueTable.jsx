@@ -16,7 +16,7 @@ export default function MaintenanceIssueTable(props) {
           <TableRow>
             <TableCell><p className='font-semibold'>Type</p></TableCell>
             <TableCell align="center"><p className='font-semibold'>Description</p></TableCell>
-            <TableCell align="center"><p className='font-semibold'>Timestamp</p></TableCell>
+            <TableCell align="center"><p className='font-semibold'>Created At</p></TableCell>
             <TableCell align="center"><p className='font-semibold'>Status</p></TableCell>
           </TableRow>
         </TableHead>
@@ -30,7 +30,7 @@ export default function MaintenanceIssueTable(props) {
                 {row.maintenanceType.name}
               </TableCell>
               <TableCell align="center">{row.description}</TableCell>
-              <TableCell align="center">{row.timestamp}</TableCell>
+              <TableCell align="center">{row.created_at}</TableCell>
               <TableCell align="center">{row.status}</TableCell>
             </TableRow>
           ))}

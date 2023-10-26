@@ -2,10 +2,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import { getMaintenanceStatusAndCount } from "../../../services/Maintenance";
 
-export const maintenanceStatusAndCountThunk = createAsyncThunk('maintenanceStatusAndCount/maintenanceStatusAndCount',async(thunkApi) => {
+export const maintenanceStatusAndCountThunk = createAsyncThunk('maintenanceStatusAndCount/maintenanceStatusAndCount',async(query,thunkApi) => {
     try {
         console.log('running thunk')
-        const result = await getMaintenanceStatusAndCount()
+        console.log('query ------> ',query)
+        const result = await getMaintenanceStatusAndCount(query)
         console.log('thunk result ---->',result)
         return result
     }
