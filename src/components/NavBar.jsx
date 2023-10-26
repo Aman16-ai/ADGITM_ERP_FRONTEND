@@ -8,6 +8,13 @@ import { useSelector } from 'react-redux';
 import { selectUserData } from '../store/slice/userSlice';
 export default function NavBar() {
   const userData = useSelector(selectUserData)
+  const getUserFullName = () => {
+    if('faculty_user' in userData) {
+      console.log('user data inside if')
+      return userData.faculty_user.first_name +" " + userData.faculty_user.last_name
+    }
+    return userData.first_name + " "+ userData.last_name
+  }
   return (
     <div className='w-screen bg-white h-16 shadow-lg flex justify-evenly items-center'>
         <div className='w-auto flex h-full'>
@@ -30,7 +37,7 @@ export default function NavBar() {
             "
             >
               <img className="w-[48px] ml-1 border-2 border-slate-200 rounded-full h-[48px]" src={profileImg}/>
-              <p className="border-black ml-2 text-black cursor-pointer">{userData?.faculty_user?.first_name} {userData?.faculty_user?.last_name}</p>
+              <p className="border-black ml-2 text-black cursor-pointer">{getUserFullName()}</p>
               </div>
         </div>
     </div>

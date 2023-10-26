@@ -6,6 +6,8 @@ import { selectIsAuthenticated, selectUserData, setIsAuthenticated, userDetailsT
 import {
   createBrowserRouter,
   RouterProvider,
+  Routes,
+  BrowserRouter,
   Route,
   Link,
 } from "react-router-dom";
@@ -15,6 +17,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Layout from './components/Layout';
 import CreateMaintenance from './page/Maintenance Mangement/CreateMaintenance';
 import AllMaintenance from './page/Maintenance Mangement/AllMaintenance';
+import { Create } from '@mui/icons-material';
 
 const router = createBrowserRouter([
   {
@@ -61,11 +64,24 @@ function App() {
   useEffect(()=> {
     console.log('user data -------> ',userData)
     console.log('isAuthenticated',isAuthenticated)
+    if(isAuthenticated) {
+      dispatch(userDetailsThunk())
+    }
   },[isAuthenticated])
   return (
   
     <>
       <RouterProvider router={router} />
+      {/* <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Layout/>}>
+            <Route index element={<PrivateRoute><Home/></PrivateRoute>}/>
+            <Route path="/createMaintenance" element={<PrivateRoute><CreateMaintenance/></PrivateRoute>} />
+            <Route path='/allMaintenance' element={<PrivateRoute><AllMaintenance/></PrivateRoute>}/>
+          </Route>
+          <Route path='/login' element={<Login/>} />
+        </Routes>
+      </BrowserRouter> */}
     </>
   )
 }
