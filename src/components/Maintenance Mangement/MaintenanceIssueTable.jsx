@@ -7,8 +7,18 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useSelector } from 'react-redux';
+import { selectUserData } from '../../store/slice/userSlice';
+import RadioGroupComponent from '../Global/RadioGroupComponent';
 
 export default function MaintenanceIssueTable(props) {
+  const user = useSelector(selectUserData)
+  const getUserRole = () => {
+    if('faculty_user' in user) {
+      return user.faculty_user.role
+    }
+    return user?.role
+  }
   return (
     <TableContainer component={Paper}>
       <Table sx={{minWidth: 650 }} aria-label="simple table">
@@ -21,9 +31,9 @@ export default function MaintenanceIssueTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {props?.data.map((row) => (
+          {props?.data.map((row,i) => (
             <TableRow
-              key={row.maintenanceType.name}
+              key={i}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
@@ -31,7 +41,7 @@ export default function MaintenanceIssueTable(props) {
               </TableCell>
               <TableCell align="center">{row.description}</TableCell>
               <TableCell align="center">{row.created_at}</TableCell>
-              <TableCell align="center">{row.status}</TableCell>
+              <TableCell align="center">{getUserRole() === 'MM' ? <><RadioGroupComponent currentStatus={row.status} id={row.id} key={i}/> </> : row.status}</TableCell>
             </TableRow>
           ))}
         </TableBody>

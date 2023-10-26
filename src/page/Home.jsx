@@ -15,9 +15,9 @@ export default function Home() {
     dispatch(getAllMaintenanceIssuesThunk())
   },[])
   return (
-    <div className='w-full h-screen flex flex-col'>
+    <div className='w-[98%] h-full flex flex-col'>
       <MaintenanceIssueStatusContainer/>
-      <div className='w-[98%] h-auto shadow-2xl p-5 mt-10 bg-white rounded-md'>
+      <div className='w-full h-auto shadow-2xl p-5 mt-10 bg-white rounded-md'>
         <h4 className='text-xl font-semibold mb-5'>Recent Maintenance Issues</h4>
       <MaintenanceIssueTable data={data}/>
       </div>
