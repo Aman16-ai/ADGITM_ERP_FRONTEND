@@ -1,7 +1,12 @@
 import { GET_MAINTENANCE_STATUS_AND_COUNT, MAINTENANCE_API } from "../Apis"
 
-export const getMaintenanceStatusAndCount = async() => {
-    const response = await fetch(GET_MAINTENANCE_STATUS_AND_COUNT)
+export const getMaintenanceStatusAndCount = async(query) => {
+    let url = GET_MAINTENANCE_STATUS_AND_COUNT
+    if (query !== undefined) {
+      url += query
+    }
+    console.log('url --------------> ',url)
+    const response = await fetch(url)
     if(response.status !== 200) {
         throw new Error("Failed to fetch")
     }
