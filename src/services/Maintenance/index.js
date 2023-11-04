@@ -1,4 +1,4 @@
-import { GET_MAINTENANCE_STATUS_AND_COUNT, MAINTENANCE_API } from "../Apis"
+import { GET_ALL_MAINTENANCE_TYPES, GET_MAINTENANCE_STATUS_AND_COUNT, MAINTENANCE_API } from "../Apis"
 
 export const getMaintenanceStatusAndCount = async(query) => {
     let url = GET_MAINTENANCE_STATUS_AND_COUNT
@@ -45,4 +45,13 @@ export const createMaintenanceIssue = async(body) => {
     }
     const data = await response.json()
     return data?.Response
+}
+
+export const getAllMaintenanceTypes = async() => {
+  const response = await fetch(GET_ALL_MAINTENANCE_TYPES);
+  if(response.status !== 200) {
+    throw new Error("Failed to fetch")
+  }
+  const data = await response.json()
+  return data?.Response
 }

@@ -2,15 +2,17 @@ import React, { useState } from 'react'
 import img from "../static/img1.jpeg"
 import { loginUser } from '../services/User'
 import { useNavigate } from 'react-router-dom'
+import { CircularProgress } from '@mui/material'
 export default function Login() {
   const navigate = useNavigate()
     const [credentails,setCredentials] = useState({
         'username' : "",
         'password' : ""
     }) 
-
+    const [isLoading,setIsLoading] = useState(false)
     const handleLogin = async() => {
         try {
+            setIsLoading(true)
             const result = await loginUser(credentails)
             console.log('login result -------> ',result)
             localStorage.setItem('erp-token',result?.access)
@@ -19,6 +21,9 @@ export default function Login() {
         }
         catch(err) {
             console.log(err)
+        }
+        finally {
+          setIsLoading(false)
         }
     }
   return (
@@ -65,7 +70,8 @@ export default function Login() {
             className="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-700 cursor-pointer"
             onClick={handleLogin}
           >
-            Login
+            
+            {isLoading ? <CircularProgress sx={{color:"white"}}/> : "Login"}
           </button>
         
       </div>
