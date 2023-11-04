@@ -24,9 +24,11 @@ export default function MaintenanceIssueTable(props) {
       <Table sx={{minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell><p className='font-semibold'>Type</p></TableCell>
+            <TableCell><p className='font-semibold'>Date</p></TableCell>
+            <TableCell align="center"><p className='font-semibold'>Type</p></TableCell>
             <TableCell align="center"><p className='font-semibold'>Description</p></TableCell>
-            <TableCell align="center"><p className='font-semibold'>Created At</p></TableCell>
+            <TableCell align="center"><p className='font-semibold'>Logged By</p></TableCell>
+            <TableCell align="center"><p className='font-semibold'>Department</p></TableCell>
             <TableCell align="center"><p className='font-semibold'>Status</p></TableCell>
           </TableRow>
         </TableHead>
@@ -37,10 +39,12 @@ export default function MaintenanceIssueTable(props) {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.maintenanceType.name}
+                {row.created_at}
               </TableCell>
+              <TableCell align="center">{row.maintenanceType.name}</TableCell>
               <TableCell align="center">{row.description}</TableCell>
-              <TableCell align="center">{row.created_at}</TableCell>
+              <TableCell align="center">{row.created_by.first_name} {row.created_by.last_name}</TableCell>
+              <TableCell align="center">{row.description}</TableCell>
               <TableCell align="center">{getUserRole() === 'MM' ? <><RadioGroupComponent currentStatus={row.status} id={row.id} key={i}/> </> : row.status}</TableCell>
             </TableRow>
           ))}
