@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllMaintenanceIssues } from "../../../services/Maintenance";
+import { getAllMaintenanceIssues, updateMaintenaceIssue } from "../../../services/Maintenance";
 
 export const getAllMaintenanceIssuesThunk = createAsyncThunk('maintenance/getAllMaintenanceIssues',async(thunkApi) => {
     try {
@@ -9,6 +9,16 @@ export const getAllMaintenanceIssuesThunk = createAsyncThunk('maintenance/getAll
         console.log('thunk result ---->',result)
         return result
     }
+    catch(err) {
+        return thunkApi.rejectWithValue
+    }
+})
+export const updateMaintenaceIssueThunk = createAsyncThunk('maintenance/updateMaintenanceIssue',async({originalIssueId,originalStatus,body
+},thunkApi) => {
+    try {
+        const result = await updateMaintenaceIssue(originalIssueId,body)
+        return {result,originalIssueId,originalStatus}
+    }   
     catch(err) {
         return thunkApi.rejectWithValue
     }
@@ -31,6 +41,12 @@ export const maintenanceSlice = createSlice({
         },
         [getAllMaintenanceIssuesThunk.rejected] : (state,action) => {
             state.data = []
+        },
+        [updateMaintenaceIssueThunk.fulfilled] : (state,action) => {
+            console.log('after update issue reducer',action.payload)
+            const originalStatus = action.payload.originalStatus
+            const updatedStatus = action.payload.result.status
+            
         }
     }
 })

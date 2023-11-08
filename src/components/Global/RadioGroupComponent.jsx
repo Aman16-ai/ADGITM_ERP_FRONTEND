@@ -4,12 +4,17 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import { useDispatch } from 'react-redux';
+import { updateMaintenaceIssueThunk } from '../../store/slice/MaintenanceSlice/maintenanceSlice';
 
 export default function RadioGroupComponent({currentStatus,id}) {
     const [selected,setSelected] = React.useState(currentStatus)
+    const dispatch = useDispatch()
     const onHandleChange = (e) => {
         console.log('radio status',e.target.value)
         setSelected(e.target.value)
+        const body = {status:e.target.value}
+        dispatch(updateMaintenaceIssueThunk({originalIssueId:id,originalStatus:currentStatus,body:body}))
     }
   return (
     <FormControl>
