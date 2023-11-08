@@ -47,6 +47,23 @@ export const createMaintenanceIssue = async(body) => {
     return data?.Response
 }
 
+export const updateMaintenaceIssue = async(id,body) => {
+  const url = MAINTENANCE_API + `${id}/`
+  const response = await fetch(url,{
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("erp-token")}`,
+      },
+      body : JSON.stringify(body)
+    })
+  if(response.status !== 200) {
+      throw new Error("Failed to fetch")
+  }
+  const data = await response.json()
+  return data?.Response
+}
 export const getAllMaintenanceTypes = async() => {
   const response = await fetch(GET_ALL_MAINTENANCE_TYPES);
   if(response.status !== 200) {

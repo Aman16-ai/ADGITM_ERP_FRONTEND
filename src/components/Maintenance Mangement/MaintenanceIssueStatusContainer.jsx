@@ -3,12 +3,8 @@ import MaintenanceIssueStatusCard from './MaintenanceIssueStatusCard'
 import { maintenanceStatusAndCountThunk } from '../../store/slice/MaintenanceSlice/maintenanceStatusAndCount'
 import { selectMaintenanceStatusAndCountData } from '../../store/slice/MaintenanceSlice/maintenanceStatusAndCount'
 import { useDispatch, useSelector } from 'react-redux'
-import DatePickerComponent from '../Global/DatePickerComponent'
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import { Button } from '@mui/material'
 import { formateDateInputStringWithFullYearMonthAndDateOnly } from '../../utils/DateFormatter'
 import DateRangeFilter from '../Global/DateRangeFilter'
-import RadioGroupComponent from '../Global/RadioGroupComponent'
 export default function MaintenanceIssueStatusContainer() {
   const data = useSelector(selectMaintenanceStatusAndCountData)
   const [startDate,setStartDate] = useState(null)
@@ -30,9 +26,9 @@ export default function MaintenanceIssueStatusContainer() {
     dispatch(maintenanceStatusAndCountThunk())
   }
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(maintenanceStatusAndCountThunk())
-  },[])
+  // useEffect(() => {
+  //   dispatch(maintenanceStatusAndCountThunk())
+  // },[])
   return (
     <div className='w-auto h-auto flex flex-col mt-3 p-5 shadow-2xl rounded-md'>
       <div className='w-full h-auto flex justify-between items-center'>

@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "./NavBar";
 import SideNav from "./SideNav";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { Alert } from "@mui/material";
+import { useSelector } from "react-redux";
+import { selectIsAuthenticated } from "../store/slice/userSlice";
 export default function Layout() {
+  const isAuthenticate = useSelector(selectIsAuthenticated)
+  console.log('isAuth-------->',isAuthenticate)
   return (
     <>
       <div className="w-screen h-screen flex flex-col">
