@@ -18,6 +18,7 @@ import Layout from './components/Layout';
 import CreateMaintenance from './page/Maintenance Mangement/CreateMaintenance';
 import AllMaintenance from './page/Maintenance Mangement/AllMaintenance';
 import { Create } from '@mui/icons-material';
+import GlobalModal from './components/Global/GlobalModal';
 
 const router = createBrowserRouter([
   {

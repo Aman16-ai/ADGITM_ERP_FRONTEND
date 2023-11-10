@@ -2,17 +2,24 @@ import React, { useState } from 'react';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import EngineeringOutlinedIcon from '@mui/icons-material/EngineeringOutlined';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
-import { Link, NavLink } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 function SideNav() {
+  const navigate = useNavigate()
   const [isHovered, setIsHovered] = useState(false);
 
   const toggleHover = () => {
     setIsHovered(!isHovered);
   };
 
+  const handleLogout = (e)=> {
+    localStorage.removeItem("erp-token")
+    navigate("/")
+    window.location.reload()
+  }
   return (
     <div
-      className={`sidenav transition-all duration-300 bg-white ${
+      className={`sidenav transition-all duration-300 bg-white flex flex-col items-center ${
         isHovered ? 'w-64 h-screen shadow-lg' : 'w-16 h-screen shadow-sm'
       }`}
       onMouseEnter={toggleHover}
@@ -55,6 +62,8 @@ function SideNav() {
         </NavLink>
         </li>
       </ul>
+
+      {isHovered ? <button onClick={handleLogout} className={`mt-[400px] bg-blue-500 w-48 rounded-md text-white h-10 rounded-2xl}`}><LogoutIcon/> Logout</button> : <div className='mt-[400px] shadow-md w-12 h-10 flex justify-center items-center rounded-md'><LogoutIcon/></div>}
     </div>
   );
 }

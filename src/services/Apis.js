@@ -8,6 +8,7 @@ export const LOGIN_USER = BASE_URL + "/account/login/"
 export const GET_MAINTENANCE_STATUS_AND_COUNT = BASE_URL + "/maintenance/maintenanceStatusAndCount"
 export const MAINTENANCE_API = BASE_URL + "/maintenance/"
 export const GET_ALL_MAINTENANCE_TYPES = BASE_URL + "/maintenance/maintenanceType/"
+export const MAINTENANCE_COMMENTS_API = BASE_URL + "/maintenance/maintenanceIssueComment"
 
 // Department API endpoints 
 export const GET_ALL_DEPARTMENTS = BASE_URL + "/department/"

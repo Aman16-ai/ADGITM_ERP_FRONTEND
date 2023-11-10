@@ -1,9 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import img from "../static/img1.jpeg"
 import { loginUser } from '../services/User'
 import { useNavigate } from 'react-router-dom'
 import { CircularProgress } from '@mui/material'
+import { useSelector } from 'react-redux'
+import { selectIsAuthenticated } from '../store/slice/userSlice'
 export default function Login() {
+  const isAuthenticated = useSelector(selectIsAuthenticated)
+  useEffect(() => {
+    if(isAuthenticated) {
+      navigate("/")
+    }
+  },[isAuthenticated])
   const navigate = useNavigate()
     const [credentails,setCredentials] = useState({
         'username' : "",
