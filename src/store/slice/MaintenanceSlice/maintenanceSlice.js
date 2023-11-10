@@ -44,8 +44,8 @@ export const maintenanceSlice = createSlice({
         },
         [updateMaintenaceIssueThunk.fulfilled] : (state,action) => {
             console.log('after update issue reducer',action.payload)
-            const originalStatus = action.payload.originalStatus
-            const updatedStatus = action.payload.result.status
+            // const originalStatus = action.payload.originalStatus
+            // const updatedStatus = action.payload.result.status
             
         }
     }

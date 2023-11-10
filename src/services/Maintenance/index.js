@@ -1,4 +1,4 @@
-import { GET_ALL_MAINTENANCE_TYPES, GET_MAINTENANCE_STATUS_AND_COUNT, MAINTENANCE_API } from "../Apis"
+import { MAINTENANCE_COMMENTS_API, GET_ALL_MAINTENANCE_TYPES, GET_MAINTENANCE_STATUS_AND_COUNT, MAINTENANCE_API } from "../Apis"
 
 export const getMaintenanceStatusAndCount = async(query) => {
     let url = GET_MAINTENANCE_STATUS_AND_COUNT
@@ -66,6 +66,40 @@ export const updateMaintenaceIssue = async(id,body) => {
 }
 export const getAllMaintenanceTypes = async() => {
   const response = await fetch(GET_ALL_MAINTENANCE_TYPES);
+  if(response.status !== 200) {
+    throw new Error("Failed to fetch")
+  }
+  const data = await response.json()
+  return data?.Response
+}
+
+export const postMaintenanceComment = async(body) => {
+  const response = await fetch(MAINTENANCE_COMMENTS_API+"/",{
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("erp-token")}`,
+      },
+      body : JSON.stringify(body)
+    })
+  if(response.status !== 200) {
+      throw new Error("Failed to fetch")
+  }
+  const data = await response.json()
+  return data?.Response
+}
+export const getAllMaintenanceComment = async(maintenanceIssueId) => {
+  const url = MAINTENANCE_COMMENTS_API + `?maintenanceIssue=${maintenanceIssueId}`
+  console.log("running get maintenacne comment service with url",url)
+  const response = await fetch(url,{
+    method:"GET",
+    headers :{
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("erp-token")}`,
+    },
+  });
   if(response.status !== 200) {
     throw new Error("Failed to fetch")
   }
