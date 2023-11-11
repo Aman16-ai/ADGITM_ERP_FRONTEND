@@ -4,7 +4,21 @@ import EngineeringOutlinedIcon from '@mui/icons-material/EngineeringOutlined';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
+import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
+import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
+import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
+import { useSelector } from 'react-redux';
+import { selectUserData } from '../store/slice/userSlice';
+import { getUserRole } from '../utils/authUtils';
+
 function SideNav() {
+  const user = useSelector(selectUserData)
   const navigate = useNavigate()
   const [isHovered, setIsHovered] = useState(false);
 
@@ -20,7 +34,7 @@ function SideNav() {
   return (
     <div
       className={`sidenav transition-all duration-300 bg-white flex flex-col items-center ${
-        isHovered ? 'w-64 h-screen shadow-lg' : 'w-16 h-screen shadow-sm'
+        isHovered ? 'w-64 h-full shadow-lg' : 'w-16 h-full shadow-sm'
       }`}
       onMouseEnter={toggleHover}
       onMouseLeave={toggleHover}
@@ -38,32 +52,67 @@ function SideNav() {
       </div> */}
       {/* <hr className="my-4 border-t border-gray-300" /> */}
       <ul className="menu-list flex flex-col items-center justify-center">
-        <li>
-        <NavLink className={({isActive}) => `${isActive ? " text-blue-700" : "text-black"}`} to={"/createMaintenance"}> <div className={`mt-10 flex items-center ${isHovered ? "w-[200px]" : "w-auto"}`}>
-        <AddCircleOutlineOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
-        <p className='ml-3 font-semibold'>{`${isHovered ? "Create Maintenance" : ""}`}</p>
+        {getUserRole(user) === 'HOD' ? <li className='mt-6 flex flex-col justify-center items-center'>
+          {isHovered ? <Accordion sx={{width:"230px",boxShadow:"none"}}>
+          <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <PermIdentityOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
+          <Typography sx={{marginLeft:"5px"}}>Faculty</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+        <NavLink className={({isActive}) => `${isActive ? "text-blue-700" : "text-black"}`} to={"/AddFaculty"}>
+        <div className='flex'>
+        <PersonAddOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
+        <Typography sx={{marginLeft:"5px"}}>Add Faculty</Typography>
         </div>
         </NavLink>
-        </li>
-        
-        <li>
-        <NavLink className={({isActive}) => `${isActive ? "text-blue-700" : "text-black"}`} to={"/allMaintenance"}> <div className={`mt-6 flex items-center  ${isHovered ? "w-[200px]" : "w-auto"}`}>
-        <EngineeringOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
-        <p className='ml-3 font-semibold'>{`${isHovered ? "All Maintenance" : ""}`}</p>
+        </AccordionDetails>
+        <AccordionDetails>
+        <NavLink className={({isActive}) => `${isActive ? "text-blue-700" : "text-black"}`} to={"/manageFaculty"}>
+        <div className='flex'>
+        <ManageAccountsOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
+        <Typography sx={{marginLeft:"5px"}}>Manage Faculty</Typography>
         </div>
         </NavLink>
-        </li>
+        </AccordionDetails>
+          </Accordion>:<PermIdentityOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />}
+        </li>:null}
 
-        <li>
-        <NavLink className={({isActive}) => `${isActive ? "text-purple-700" : "text-black"}`} to={"/expenses"}> <div className={`mt-6 flex items-center  ${isHovered ? "w-[200px]" : "w-auto"}`}>
-        <AccountBalanceWalletOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
-        <p className='ml-3 font-semibold'>{`${isHovered ? "Maintenance Expenses" : ""}`}</p>
+
+        <li className={`${isHovered?'mt-2':'mt-6'} flex flex-col justify-center items-center`}>
+          {isHovered ? <Accordion sx={{width:"230px",boxShadow:"none"}}>
+          <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <HomeWorkOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
+          <Typography sx={{marginLeft:"5px"}}>Maintenance</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+        <NavLink className={({isActive}) => `${isActive ? "text-blue-700" : "text-black"}`} to={"/createMaintenance"}>
+        <div className='flex'>
+        <AddCircleOutlineOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
+        <Typography sx={{marginLeft:"5px"}}>Create Maintenance</Typography>
         </div>
         </NavLink>
+        </AccordionDetails>
+        <AccordionDetails>
+        <NavLink className={({isActive}) => `${isActive ? "text-blue-700" : "text-black"}`} to={"/manageFaculty"}>
+        <div className='flex'>
+        <ManageAccountsOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
+        <Typography sx={{marginLeft:"5px"}}>Manage Maintenance</Typography>
+        </div>
+        </NavLink>
+        </AccordionDetails>
+          </Accordion>:<HomeWorkOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />}
         </li>
       </ul>
 
-      {isHovered ? <button onClick={handleLogout} className={`mt-[400px] bg-blue-500 w-48 rounded-md text-white h-10 rounded-2xl}`}><LogoutIcon/> Logout</button> : <div className='mt-[400px] shadow-md w-12 h-10 flex justify-center items-center rounded-md'><LogoutIcon/></div>}
+      {isHovered ? <button onClick={handleLogout} className={`mt-auto mb-[15px] bg-blue-500 w-48 rounded-md text-white h-10 rounded-2xl}`}><LogoutIcon/> Logout</button> : <div className='mt-auto mb-[15px] shadow-md w-12 h-10 flex justify-center items-center rounded-md'><LogoutIcon/></div>}
     </div>
   );
 }

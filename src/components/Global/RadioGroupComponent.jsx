@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { updateMaintenaceIssueThunk } from '../../store/slice/MaintenanceSlice/maintenanceSlice';
 
 export default function RadioGroupComponent({currentStatus,id}) {
+  console.log('current log status',currentStatus)
     const [selected,setSelected] = React.useState(currentStatus)
     const dispatch = useDispatch()
     const onHandleChange = (e) => {
@@ -16,6 +17,9 @@ export default function RadioGroupComponent({currentStatus,id}) {
         const body = {status:e.target.value}
         dispatch(updateMaintenaceIssueThunk({originalIssueId:id,originalStatus:currentStatus,body:body}))
     }
+    React.useEffect(()=> {
+      setSelected(currentStatus)
+    },[currentStatus])
   return (
     <FormControl>
       <FormLabel id="demo-row-radio-buttons-group-label"></FormLabel>
