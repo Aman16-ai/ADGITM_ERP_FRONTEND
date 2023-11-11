@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { createMaintenanceIssue, getAllMaintenanceTypes } from '../../services/Maintenance';
 import { CircularProgress } from '@mui/material';
 import { getAllDeparments } from '../../services/Department';
+import { useDispatch } from 'react-redux';
+import { updateAlert } from '../../store/slice/alertSlice';
 
 function MaintenanceForm() {
+    const dispatch = useDispatch()
     const [payload,setPayload] = useState({
         "maintenanceType": null,
         "department":null,
@@ -20,6 +23,8 @@ function MaintenanceForm() {
       try {
         const departmentList = await getAllDeparments()
         setDeparments(departmentList)
+        console.log('deparmtent service',departmentList[0].id)
+        setPayload({...payload,department:departmentList[0].id})
       }
       catch(err) {
         alert(err)
@@ -30,6 +35,7 @@ function MaintenanceForm() {
       try {
         const maintenanceTypeList = await getAllMaintenanceTypes()
         setMaintenanceTypes(maintenanceTypeList)
+        setPayload({...payload,maintenanceType:maintenanceTypeList[0].id})
       } 
       catch(err) {
         alert(err)
@@ -41,15 +47,25 @@ function MaintenanceForm() {
     const onSubmit = async() => {
         console.log('payload ----------> ',payload)
         try {
-            setIsLoading(true)
-            const result = await createMaintenanceIssue(payload)
-            console.log(result)
+            if(payload.description === '' || payload.department === null || payload.maintenanceType === null) {
+              dispatch(updateAlert({'open':true,message:"Please enter all fields",severity:'error'}))
+            }
+            else {
+              setIsLoading(true)
+              const result = await createMaintenanceIssue(payload)
+              console.log(result)
+              dispatch(updateAlert({'open':true,message:'Successfully created',severity:'success'}))
+            }
         }
         catch(err) {
-            console.log(err)
+            dispatch(updateAlert({'open':true,message:err.toString(),severity:'error'}))
         }
         finally {
           setIsLoading(false)
+          setTimeout(()=> {
+            dispatch(updateAlert({open:false}))
+            
+          },2000)
         }
     }
 
@@ -85,7 +101,7 @@ function MaintenanceForm() {
             className="w-full p-3 border rounded-lg text-gray-700"
             id="maintenance-type"
             name="department"
-            value={payload.deparment}
+            value={payload.department}
             onChange={onHandleChange}
           >
             {departments.map((d) => {

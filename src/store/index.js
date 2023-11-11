@@ -5,6 +5,7 @@ import maintenanceReducer from "./slice/MaintenanceSlice/maintenanceSlice"
 import maintenanceBarChartReducer from './slice/MaintenanceSlice/maintenanceBarChart'
 import globalModalReducer from "./slice/globalModal"
 import maintenanceCommentReducer from "./slice/MaintenanceSlice/commentSlice"
+import alertReducer from "./slice/alertSlice"
 export const store = configureStore({
   reducer: {
     user:userReducer,
@@ -12,6 +13,7 @@ export const store = configureStore({
     maintenanceBarChart : maintenanceBarChartReducer,
     maintenance : maintenanceReducer,
     globalModal : globalModalReducer,
-    maintenanceComment:maintenanceCommentReducer
-  },
+    maintenanceComment:maintenanceCommentReducer,
+    alert:alertReducer,
+  }
 })

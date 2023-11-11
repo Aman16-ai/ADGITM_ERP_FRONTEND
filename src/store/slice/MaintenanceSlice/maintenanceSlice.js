@@ -2,10 +2,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import { getAllMaintenanceIssues, updateMaintenaceIssue } from "../../../services/Maintenance";
 
-export const getAllMaintenanceIssuesThunk = createAsyncThunk('maintenance/getAllMaintenanceIssues',async(thunkApi) => {
+export const getAllMaintenanceIssuesThunk = createAsyncThunk('maintenance/getAllMaintenanceIssues',async(query,thunkApi) => {
     try {
         console.log('running thunk')
-        const result = await getAllMaintenanceIssues()
+        const result = await getAllMaintenanceIssues(query)
         console.log('thunk result ---->',result)
         return result
     }

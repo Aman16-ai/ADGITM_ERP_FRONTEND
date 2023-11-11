@@ -55,7 +55,7 @@ export default function MaintenanceIssueTable(props) {
               <TableCell align="center">{row.maintenanceType.name}</TableCell>
               <TableCell align="center">{row.description}</TableCell>
               <TableCell align="center">{row.created_by.first_name} {row.created_by.last_name}</TableCell>
-              <TableCell align="center">{row.description}</TableCell>
+              <TableCell align="center">{row.department.name}</TableCell>
               <TableCell align="center">{getUserRole() === 'MM' ? <><RadioGroupComponent currentStatus={row.status} id={row.id} key={i}/> </> : row.status}</TableCell>
               <TableCell align='center'><button onClick={(e) => handleComment(row.id)}><CommentOutlinedIcon fontSize='medium' sx={{ stroke: "#ffffff" }} /></button></TableCell>
             </TableRow>
