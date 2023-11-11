@@ -22,7 +22,7 @@ export default function Layout() {
       <div className="w-auto h-auto">
         <NavBar />
       </div>
-      <div className="w-full h-full flex">
+      <div className="w-full h-[90%] flex">
         <div className="w-auto h-auto border-t-2">
           <SideNav />
         </div>

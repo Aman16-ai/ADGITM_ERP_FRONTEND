@@ -3,11 +3,12 @@ import logo from "../static/adgitmLogo.jpeg"
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
 import profileImg from "../static/profilePic.jpg"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectUserData } from '../store/slice/userSlice';
 export default function NavBar() {
   const userData = useSelector(selectUserData)
+  const navigate = useNavigate()
   const getUserFullName = () => {
     if('faculty_user' in userData) {
       console.log('user data inside if')
@@ -17,7 +18,7 @@ export default function NavBar() {
   }
   return (
     <div className='w-screen bg-white h-16 shadow-lg flex justify-evenly items-center'>
-        <div className='w-auto flex h-full'>
+        <div className='w-auto flex h-full cursor-pointer' onClick={(e) => navigate("/")}>
         <img src={logo} alt="" className='w-[65px] ml-5' />
         <h4 className='w-[250px] mt-2 font-semibold'>Dr. Akhilesh Das Gupta Institute of Technology & Management</h4>
         </div>
