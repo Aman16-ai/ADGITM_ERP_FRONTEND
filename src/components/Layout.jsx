@@ -6,14 +6,12 @@ import { Alert } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectIsAuthenticated,
-  setIsAuthenticated,
-  userDetailsThunk,
 } from "../store/slice/userSlice";
-import { getUserDetails } from "../services/User";
-import GlobalModal from "../store/slice/globalModal";
+import { selectAlertOptions } from "../store/slice/alertSlice";
 export default function Layout() {
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const navigate = useNavigate();
+  const {open,severity,variant,message} = useSelector(selectAlertOptions)
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/login");
@@ -31,9 +29,9 @@ export default function Layout() {
         <div className="w-full h-full p-5 overflow-y-scroll">
           <Outlet />
           <div className="w-auto h-auto absolute right-0 bottom-2 mr-2 fixed">
-            {/* <Alert variant="filled" severity="success">
-                This is an error alert — check it out!
-              </Alert> */}
+            {open ? <Alert variant={variant} severity={severity}>
+                {message}
+              </Alert>:null}
           </div>
         </div>
       </div>

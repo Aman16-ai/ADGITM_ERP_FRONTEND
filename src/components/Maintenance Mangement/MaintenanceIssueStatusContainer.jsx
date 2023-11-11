@@ -5,6 +5,7 @@ import { selectMaintenanceStatusAndCountData } from '../../store/slice/Maintenan
 import { useDispatch, useSelector } from 'react-redux'
 import { formateDateInputStringWithFullYearMonthAndDateOnly } from '../../utils/DateFormatter'
 import DateRangeFilter from '../Global/DateRangeFilter'
+import { getAllMaintenanceIssuesThunk } from '../../store/slice/MaintenanceSlice/maintenanceSlice'
 export default function MaintenanceIssueStatusContainer() {
   const data = useSelector(selectMaintenanceStatusAndCountData)
   const [startDate,setStartDate] = useState(null)
@@ -15,6 +16,7 @@ export default function MaintenanceIssueStatusContainer() {
       const formattedEndDate = formateDateInputStringWithFullYearMonthAndDateOnly(endDate)
       const query = `?start_date=${formattedStartDate}&end_date=${formattedEndDate}`
       dispatch(maintenanceStatusAndCountThunk(query)) 
+      dispatch(getAllMaintenanceIssuesThunk(query))
     }
     else {
       //TODO : alert message date must be choosen
@@ -24,6 +26,7 @@ export default function MaintenanceIssueStatusContainer() {
     setStartDate(null)
     setEndDate(null)
     dispatch(maintenanceStatusAndCountThunk())
+    dispatch(getAllMaintenanceIssuesThunk())
   }
   const dispatch = useDispatch()
   // useEffect(() => {

@@ -14,8 +14,13 @@ export const getMaintenanceStatusAndCount = async(query) => {
     return data?.Response
 }
 
-export const getAllMaintenanceIssues = async () => {
-    const response = await fetch(MAINTENANCE_API,{
+export const getAllMaintenanceIssues = async (query) => {
+    let url = MAINTENANCE_API
+    if(query !== undefined) {
+      url = url.slice(0,-1) + query
+      console.log('url of get all maintenance issue',url)
+    }
+    const response = await fetch(url,{
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -40,10 +45,11 @@ export const createMaintenanceIssue = async(body) => {
         },
         body : JSON.stringify(body)
       })
-    if(response.status !== 200) {
-        throw new Error("Failed to fetch")
-    }
+    console.log('api status -----> ',response.status)
     const data = await response.json()
+    if(response.status !== 201) {
+        throw new Error(JSON.stringify(data?.Response))
+    }
     return data?.Response
 }
 
