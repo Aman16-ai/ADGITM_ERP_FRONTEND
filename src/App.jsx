@@ -19,6 +19,7 @@ import CreateMaintenance from './page/Maintenance Mangement/CreateMaintenance';
 import AllMaintenance from './page/Maintenance Mangement/AllMaintenance';
 import { Create } from '@mui/icons-material';
 import GlobalModal from './components/Global/GlobalModal';
+import ManageFaculty from './page/Faculty Management/ManageFaculty';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path : "/allMaintenance",
         element : <AllMaintenance/>
+      },
+      {
+        path:"/manageFaculty",
+        element : <ManageFaculty/>
       }
     ]
   },
