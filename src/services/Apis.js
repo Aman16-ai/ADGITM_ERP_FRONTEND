@@ -3,6 +3,7 @@ const BASE_URL = "http://127.0.0.1:8000"
 // Authentication and user apiendpoints
 export const GET_USER_DETAILS = BASE_URL + "/account/user"
 export const LOGIN_USER = BASE_URL + "/account/login/"
+export const REGISTER_FACULTY = BASE_URL + "/account/registerFaculty"
 
 // Maintenance API endpoints
 export const GET_MAINTENANCE_STATUS_AND_COUNT = BASE_URL + "/maintenance/maintenanceStatusAndCount"

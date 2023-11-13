@@ -1,4 +1,4 @@
-import { GET_USER_DETAILS, LOGIN_USER } from "../Apis";
+import { GET_USER_DETAILS, LOGIN_USER, REGISTER_FACULTY } from "../Apis";
 
 export const getUserDetails = async () => {
   const response = await fetch(GET_USER_DETAILS, {
@@ -13,6 +13,20 @@ export const getUserDetails = async () => {
   }
   const data = await response.json()
   return data?.Response
+};
+export const getAllFacutliesDetail = async () => {
+  const response = await fetch(REGISTER_FACULTY, {
+    method : 'GET',
+    headers: {
+      "content-Type":"application/json",
+      Authorization: `Bearer ${localStorage.getItem("erp-token")}`,
+    },
+  });
+  if(response.status !== 200) {
+    throw new Error("User not found")
+  }
+  const data = await response.json()
+  return data
 };
 
 export const loginUser = async (credentails) => {
