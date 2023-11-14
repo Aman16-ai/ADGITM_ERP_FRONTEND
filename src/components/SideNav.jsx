@@ -60,21 +60,21 @@ function SideNav() {
           id="panel1a-header"
         >
           <PermIdentityOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
-          <Typography sx={{marginLeft:"5px"}}>Faculty</Typography>
+          <Typography sx={{marginLeft:"5px"}}>Users</Typography>
         </AccordionSummary>
         <AccordionDetails>
-        <NavLink className={({isActive}) => `${isActive ? "text-blue-700" : "text-black"}`} to={"/AddFaculty"}>
+        <NavLink className={({isActive}) => `${isActive ? "text-blue-700" : "text-black"}`} to={"/AddUser"}>
         <div className='flex'>
         <PersonAddOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
-        <Typography sx={{marginLeft:"5px"}}>Add Faculty</Typography>
+        <Typography sx={{marginLeft:"5px"}}>Add User</Typography>
         </div>
         </NavLink>
         </AccordionDetails>
         <AccordionDetails>
-        <NavLink className={({isActive}) => `${isActive ? "text-blue-700" : "text-black"}`} to={"/manageFaculty"}>
+        <NavLink className={({isActive}) => `${isActive ? "text-blue-700" : "text-black"}`} to={"/manageUsers"}>
         <div className='flex'>
         <ManageAccountsOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
-        <Typography sx={{marginLeft:"5px"}}>Manage Faculty</Typography>
+        <Typography sx={{marginLeft:"5px"}}>Manage Users</Typography>
         </div>
         </NavLink>
         </AccordionDetails>

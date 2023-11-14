@@ -44,3 +44,19 @@ export const loginUser = async (credentails) => {
       const data = await response.json();
       return data?.Response;
 }
+
+export const registerFaculty = async (body) => {
+  const response = await fetch(REGISTER_FACULTY, {
+    method : 'POST',
+    headers: {
+      "content-Type":"application/json",
+      Authorization: `Bearer ${localStorage.getItem("erp-token")}`,
+    },
+    body : JSON.stringify(body)
+  });
+  if(response.status !== 201) {
+    throw new Error("Failed to register")
+  }
+  const data = await response.json()
+  return data
+};
