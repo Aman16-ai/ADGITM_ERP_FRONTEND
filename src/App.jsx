@@ -19,41 +19,52 @@ import CreateMaintenance from './page/Maintenance Mangement/CreateMaintenance';
 import AllMaintenance from './page/Maintenance Mangement/AllMaintenance';
 import { Create } from '@mui/icons-material';
 import GlobalModal from './components/Global/GlobalModal';
-import ManageFaculty from './page/Faculty Management/ManageFaculty';
+import AddUser from './page/Faculty Management/AddUser';
+import NotFound from './page/NotFound';
+import ManageUsers from './page/Faculty Management/ManageUsers';
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout/>,
-    children:[
-      {
-        index : true,
-        element : <Home/>
-      },
-      {
-        path : "/createMaintenance",
-        element : <CreateMaintenance/>
-      },
-      {
-        path : "/allMaintenance",
-        element : <AllMaintenance/>
-      },
-      {
-        path:"/manageFaculty",
-        element : <ManageFaculty/>
-      }
-    ]
-  },
-  {
-    path: "login",
-    element: <Login/>
-  },
-]);
+
 function App() {
   const dispatch = useDispatch()
   const userData = useSelector(selectUserData)
   const isAuthenticated = useSelector(selectIsAuthenticated)
 
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout/>,
+      children:[
+        {
+          index : true,
+          element : <Home/>
+        },
+        {
+          path : "/createMaintenance",
+          element : <CreateMaintenance/>
+        },
+        {
+          path : "/allMaintenance",
+          element : <AllMaintenance/>
+        },
+        {
+          path:"/manageUsers",
+          element : <PrivateRoute><ManageUsers/></PrivateRoute>
+        },
+        {
+          path:"/AddUser",
+          element:<AddUser/>
+        }
+      ]
+    },
+    {
+      path: "login",
+      element: <Login/>
+    },
+    {
+      path:"NotFound",
+      element:<NotFound/>
+    }
+  ]);
   const fun = async () => {
     return await getUserDetails()
   }
