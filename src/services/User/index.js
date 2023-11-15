@@ -1,4 +1,4 @@
-import { GET_USER_DETAILS, LOGIN_USER, REGISTER_FACULTY } from "../Apis";
+import { GET_USER_DETAILS, LOGIN_USER, REGISTER_FACULTY, REGISTER_USER } from "../Apis";
 
 export const getUserDetails = async () => {
   const response = await fetch(GET_USER_DETAILS, {
@@ -55,6 +55,42 @@ export const registerFaculty = async (body) => {
     body : JSON.stringify(body)
   });
   if(response.status !== 201) {
+    throw new Error("Failed to register")
+  }
+  const data = await response.json()
+  return data
+};
+
+export const registerUser = async (body) => {
+  const response = await fetch(REGISTER_USER, {
+    method : 'POST',
+    headers: {
+      "content-Type":"application/json",
+      Authorization: `Bearer ${localStorage.getItem("erp-token")}`,
+    },
+    body : JSON.stringify(body)
+  });
+  if(response.status !== 201) {
+    throw new Error("Failed to register")
+  }
+  const data = await response.json()
+  return data
+};
+
+export const getAllUser = async (query) => {
+  let url = REGISTER_USER
+  if(query !== undefined) {
+    url += query
+  }
+  const response = await fetch(url, {
+    method : 'GET',
+    headers: {
+      "content-Type":"application/json",
+      Authorization: `Bearer ${localStorage.getItem("erp-token")}`,
+    },
+    
+  });
+  if(response.status !== 200) {
     throw new Error("Failed to register")
   }
   const data = await response.json()
