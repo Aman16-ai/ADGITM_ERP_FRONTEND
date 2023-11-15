@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { updateAlert } from "../../store/slice/alertSlice";
 import { useDispatch } from "react-redux";
-import { registerFaculty } from "../../services/User";
+import { registerFaculty, registerUser } from "../../services/User";
 import CircularProgressBarButton from "../Global/CircularProgressBarButton";
 import { getAllDeparments } from "../../services/Department";
 
@@ -46,30 +46,47 @@ const UserForm = () => {
   const handleSubmit = async (e) => {
     // Add your form submission logic here
     console.log("Form submitted:", formData);
-    const payload = {
-      faculty_user: {
-        password: formData.password,
-        email: formData.email,
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        is_active: true,
-        is_staff: false,
-        is_superuser: false,
-        username: formData.username,
-        password_changed: false,
-        role: formData.role,
-      },
-      faculty_id: formData.username,
-      department: 1,
-      joined_at: "2023-03-09",
-      salary: 20000,
-      last_promotion_on: "2023-03-09",
-      experience: 3,
-    };
+    let payload = {}
+    if(formData.role === 'MM') {
+      payload = {
+          password: formData.password,
+          email: formData.email,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          is_active: true,
+          is_staff: false,
+          is_superuser: false,
+          username: formData.username,
+          password_changed: false,
+          role: formData.role,
+      }
+    }
+    else {
+      payload = {
+        faculty_user: {
+          password: formData.password,
+          email: formData.email,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          is_active: true,
+          is_staff: false,
+          is_superuser: false,
+          username: formData.username,
+          password_changed: false,
+          role: formData.role,
+        },
+        faculty_id: formData.username,
+        department: formData.department,
+        joined_at: "2023-03-09",
+        salary: 20000,
+        last_promotion_on: "2023-03-09",
+        experience: 3,
+      };
+    }
     try {
       setIsLoading(true);
-      console.log("register faculty payload");
-      const result = await registerFaculty(payload);
+      console.log("register faculty payload",payload);
+      const result = formData.role === 'MM'? await registerUser(payload): await registerFaculty(payload);
       console.log("regitartion resposne", result);
       dispatch(
         updateAlert({
@@ -198,12 +215,13 @@ const UserForm = () => {
             <option value="HOD">HOD</option>
             <option value="Professor">Professor</option>
             <option value="Assistant Professor">Assistant Professor</option>
+            <option value="MM">Maintenance Manager</option>
             {/* Add other role options if needed */}
           </select>
         </label>
       </div>
 
-      <div className="mb-4">
+      {(formData.role === 'HOD' || formData.role === 'Assistant Professor' || formData.role === 'Professor') ?<><div className="mb-4">
         <label
           htmlFor="facultyId"
           className="block text-sm font-medium text-gray-600 mb-1"
@@ -241,7 +259,7 @@ const UserForm = () => {
             {/* Add other department options if needed */}
           </select>
         </label>
-      </div>
+      </div></>:null}
 
       {/* <div className="mb-4">
         <label htmlFor="joinedAt" className="block text-sm font-medium text-gray-600 mb-1">
