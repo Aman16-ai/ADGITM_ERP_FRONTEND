@@ -11,7 +11,7 @@ const  DatePickerComponent = ({placeholder,selectedDate,setSelectedDate}) => {
         onChange={(date) => setSelectedDate(date)}
         dateFormat="yyyy/MM/dd"
         placeholderText={placeholder}
-        className="w-full p-2 focus:outline-none"
+        className="w-[170px] p-1 focus:outline-none"
       />
       <DateRangeOutlinedIcon sx={{marginRight:"2px"}}/>
     </div>

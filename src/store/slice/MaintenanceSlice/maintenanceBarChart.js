@@ -5,14 +5,14 @@ export const maintenanceBarChartSlice = createSlice({
     initialState : {
         options : { xAxis: {
             type: 'category',
-            data: ['Total','Pending', 'Completed', 'Rejected'],
+            data: ['Total','Progress','Pending', 'Completed','Rejected'],
           },
           yAxis: {
             type: 'value'
           },
           series: [
             {
-              data: [120, 200, 150, 80, 70, 110, 130],
+              data: [120, 200, 150, 80, 70, 110],
               type: 'bar',
               showBackground: true,
               backgroundStyle: {
@@ -33,7 +33,9 @@ export const maintenanceBarChartSlice = createSlice({
             const pending = payload?.find( p => p.status === 'Pending')
             const completed = payload?.find( p => p.status === 'Completed')
             const rejected = payload?.find( p => p.status === 'Rejected')
-            const data = [total?.count,pending?.count,completed?.count,rejected?.count]
+            const progress = payload?.find(p => p.status === 'Progress')
+            const verified = payload?.find(p => p.status === 'Verified')
+            const data = [total?.count,progress?.count,pending?.count,completed?.count,rejected?.count]
             console.log('chart data reducers',data)
             state.options.series[0] = {
                 ...state.options.series[0],

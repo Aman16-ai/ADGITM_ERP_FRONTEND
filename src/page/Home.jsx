@@ -21,6 +21,7 @@ import {
   selectMaintenanceStatusAndCountData,
 } from "../store/slice/MaintenanceSlice/maintenanceStatusAndCount";
 import GlobalModal from "../components/Global/GlobalModal";
+import Filter from "../components/Maintenance Mangement/filter";
 export default function Home() {
   const data = useSelector(selectAllMaintenanceIssue);
   const statusAndCountData = useSelector(selectMaintenanceStatusAndCountData);
@@ -51,10 +52,13 @@ export default function Home() {
             <LineChart key={"line"} />
           </div>
         </div>
-        <div className="w-full h-auto shadow-2xl p-5 mt-10 bg-white rounded-md">
+        <div className="w-full h-auto flex flex-col shadow-2xl p-5 mt-10 bg-white rounded-md">
+          <div className="w-full h-auto flex justify-between">
           <h4 className="text-xl font-semibold mb-5">
-            Recent Maintenance Issues
+            Maintenance Issues
           </h4>
+          <Filter/>
+          </div>
           <MaintenanceIssueTable data={data} />
         </div>
       </div>

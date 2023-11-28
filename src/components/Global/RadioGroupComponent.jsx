@@ -6,6 +6,15 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import { useDispatch } from 'react-redux';
 import { updateMaintenaceIssueThunk } from '../../store/slice/MaintenanceSlice/maintenanceSlice';
+import { createTheme } from '@mui/material';
+import { red, yellow } from '@mui/material/colors';
+const { palette } = createTheme();
+const theme = createTheme({
+  palette: {
+    redButton: palette.augmentColor({ color: red }),
+    summer: palette.augmentColor({ color: yellow }),
+  },
+})
 
 export default function RadioGroupComponent({currentStatus,id}) {
   console.log('current log status',currentStatus)
@@ -30,6 +39,7 @@ export default function RadioGroupComponent({currentStatus,id}) {
         value={selected}
         onChange={onHandleChange}
       >
+        <FormControlLabel value="Progress" control={<Radio />} label="In Progress" />
         <FormControlLabel value="Pending" control={<Radio />} label="Pending" />
         <FormControlLabel value="Completed" control={<Radio />} label="Completed" />
         <FormControlLabel value="Rejected" control={<Radio />} label="Rejected" />
