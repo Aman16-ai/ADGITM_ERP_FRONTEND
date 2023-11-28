@@ -26,17 +26,37 @@ export const updateMaintenaceIssueThunk = createAsyncThunk('maintenance/updateMa
 export const maintenanceSlice = createSlice({
     name:"maintenance",
     initialState : {
+        allData : [],
         data : [],
         isLoading : false
     },
     reducers : {
         updateCount : (state,action) => {
             state.data = {...state.data,[action.name]:state.data.name + action.value}
+        },
+        applyFitler : (state,action) => {
+            const filterName = action.payload.name
+            const filterValue = action.payload.value
+            if(filterValue === 'default') {
+                console.log('running filter value ',filterValue,state.allData)
+                state.data = [...state.allData]
+            }
+            else if(filterName === 'department') {
+                console.log('running filter value ',filterValue,state.allData)
+                const result = state.allData.filter((d) => d.department.name.toLowerCase() === filterValue.toLowerCase())
+                state.data = result
+                console.log('filter result ',result)
+            }
+            else {
+                state.data = state.allData.filter((d) => d.status.toLowerCase() === filterValue.toLowerCase())
+            }
+
         }
     },
     extraReducers : {
         [getAllMaintenanceIssuesThunk.fulfilled] : (state,action) => {
             state.data = action.payload
+            state.allData = action.payload
             state.isLoading = false
         },
         [getAllMaintenanceIssuesThunk.rejected] : (state,action) => {
@@ -51,7 +71,7 @@ export const maintenanceSlice = createSlice({
     }
 })
 
-export const {updateCount} = maintenanceSlice.actions
+export const {updateCount,applyFitler} = maintenanceSlice.actions
 export const selectAllMaintenanceIssue = (state) => state.maintenance.data
 // export const selectIsAuthenticated = (state) => state.user.isAuthenticated
 export default maintenanceSlice.reducer

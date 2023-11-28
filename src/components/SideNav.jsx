@@ -52,7 +52,7 @@ function SideNav() {
       </div> */}
       {/* <hr className="my-4 border-t border-gray-300" /> */}
       <ul className="menu-list flex flex-col items-center justify-center">
-        {getUserRole(user) === 'HOD' ? <li className='mt-6 flex flex-col justify-center items-center'>
+        {getUserRole(user) === 'Admin' ? <li className='mt-6 flex flex-col justify-center items-center'>
           {isHovered ? <Accordion sx={{width:"230px",boxShadow:"none"}}>
           <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -82,7 +82,7 @@ function SideNav() {
         </li>:null}
 
 
-        <li className={`${isHovered?'mt-2':'mt-6'} flex flex-col justify-center items-center`}>
+        {getUserRole(user) !== 'MM' ?<><li className={`${isHovered?'mt-2':'mt-6'} flex flex-col justify-center items-center`}>
           {isHovered ? <Accordion sx={{width:"230px",boxShadow:"none"}}>
           <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -92,7 +92,7 @@ function SideNav() {
           <HomeWorkOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
           <Typography sx={{marginLeft:"5px"}}>Maintenance</Typography>
         </AccordionSummary>
-        <AccordionDetails>
+        {getUserRole(user) !== 'MM' ? <><AccordionDetails>
         <NavLink className={({isActive}) => `${isActive ? "text-blue-700" : "text-black"}`} to={"/createMaintenance"}>
         <div className='flex'>
         <AddCircleOutlineOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
@@ -107,9 +107,9 @@ function SideNav() {
         <Typography sx={{marginLeft:"5px"}}>Manage Maintenance</Typography>
         </div>
         </NavLink>
-        </AccordionDetails>
+        </AccordionDetails></>:null}
           </Accordion>:<HomeWorkOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />}
-        </li>
+        </li></>:null}
       </ul>
 
       {isHovered ? <button onClick={handleLogout} className={`mt-auto mb-[15px] bg-blue-500 w-48 rounded-md text-white h-10 rounded-2xl}`}><LogoutIcon/> Logout</button> : <div className='mt-auto mb-[15px] shadow-md w-12 h-10 flex justify-center items-center rounded-md'><LogoutIcon/></div>}

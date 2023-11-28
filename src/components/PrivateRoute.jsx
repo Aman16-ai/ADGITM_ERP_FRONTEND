@@ -7,7 +7,7 @@ export default function PrivateRoute({children}) {
     const isAuthenticated = useSelector(selectIsAuthenticated)
     const userData = useSelector(selectUserData)
     console.log('is priate',isAuthenticated)
-    if(getUserRole(userData) !== 'HOD') {
+    if(getUserRole(userData) !== 'Admin') {
         console.log('running ------------> private route')
         return <Navigate to={"/NotFound"}/>
     }

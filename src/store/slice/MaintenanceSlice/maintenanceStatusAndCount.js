@@ -34,13 +34,16 @@ export const maintenanceStatusAndCountSlice = createSlice({
                 totalCount += d.count
             });
             state.data = [{'status':'Total','count':totalCount},...state.data]
-            // const total = result.find(r => r.status === 'Total')
-            // const completed = result.find(r => r.status === 'Completed')
-            // const pending = result.find(r => r.status === 'Pending')
-            // const rejected = result.find(r => r.status === 'Rejected')
-            // state.data =[total,pending,completed,rejected]
-
-            console.log('count state eR -------->',state.data)
+            // const total = state.data.find(r => r?.status === 'Total')
+            // const progress = state.data.find(r => r?.status === 'Progress')
+            // const completed = state.data.find(r => r?.status === 'Completed')
+            // const pending = state.data.find(r => r?.status === 'Pending')
+            // const rejected = state.data.find(r => r?.status === 'Rejected')
+            // state.data =[total,pending,progress,completed,rejected]
+            // for(d of result) {
+            //     console.log(d)
+            // }
+            console.log('count state eR -------->')
             state.isLoading = false
         },
         [maintenanceStatusAndCountThunk.rejected] : (state,action) => {
@@ -63,10 +66,11 @@ export const maintenanceStatusAndCountSlice = createSlice({
             })
             console.log('after update status and count result',result)
             const total = result.find(r => r.status === 'Total')
+            const progress = result.find(r => r.status === 'Progress')
             const completed = result.find(r => r.status === 'Completed')
             const pending = result.find(r => r.status === 'Pending')
             const rejected = result.find(r => r.status === 'Rejected')
-            state.data =[total,pending,completed,rejected]
+            state.data =[total,progress,pending,completed,rejected]
         }
     }
 })
