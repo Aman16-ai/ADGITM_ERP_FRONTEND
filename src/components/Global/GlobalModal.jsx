@@ -4,8 +4,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectModalOpen } from '../../store/slice/globalModal';
-import { setOpen } from '../../store/slice/globalModal';
+import { selectModalOpen, selectModalType } from '../../store/slice/globalModal';
+import { setOpen,updateAction } from '../../store/slice/globalModal';
 import { useState } from 'react';
 import CommentList from './CommentList';
 import CommentForm from './CommentForm';
@@ -17,16 +17,28 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 580,
-  height: 650,
+  height: 550,
   bgcolor: 'background.paper',
   border: 'none',
   boxShadow: 24,
   borderRadius:"0.6rem"
 };
-
+const styleDialog = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 380,
+  height: 150,
+  bgcolor: 'background.paper',
+  border: 'none',
+  boxShadow: 24,
+  borderRadius:"0.6rem"
+};
 export default function GlobalModal() {
     const open = useSelector(selectModalOpen)
     const {maintenanceIssue} = useSelector(selectCommentPayload)
+    const modelType = useSelector(selectModalType)
     const dispatch = useDispatch()
     const handleOpen = () => dispatch(setOpen(true));
     const handleClose = () => dispatch(setOpen(false));
@@ -70,14 +82,22 @@ export default function GlobalModal() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <div className="max-w-lg h-full flex flex-col mx-auto">
+        <Box sx={modelType === 'comment'?style:styleDialog}>
+          {modelType === 'comment' ?<div className="max-w-lg h-full flex flex-col mx-auto">
             <CommentForm onPostComment={handlePostComment} />
             <h3 className="text-xl font-semibold mt-5">Comments</h3>
             <div className='overflow-y-scroll'>
             <CommentList comments={comments} />
             </div>
-          </div>
+          </div>:
+            <div className='max-w-lg h-full flex flex-col justify-center items-center'>
+              <h1 className='text-3xl'>Are you sure?</h1>
+              <div className='flex w-full  mt-5 justify-center items-center'>
+                <Button className='w-[150px]' variant='contained' color='success' onClick={e => dispatch(updateAction(true))}>Yes</Button>
+                <Button className='w-[150px]' style={{marginLeft:"7px"}} variant='contained' color='error'>No</Button>
+              </div>
+            </div>
+          }
         </Box>
       </Modal>
     </div>

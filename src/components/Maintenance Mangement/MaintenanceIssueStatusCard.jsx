@@ -30,7 +30,7 @@ export default function MaintenanceIssueStatusCard({status,count}) {
   return (
     <div className={`w-[290px] m-4 h-32 shadow-md rounded-md ${getIconOrColor(true)} flex flex-col justify-center items-center hover:scale-110`}>
         <div className='flex'>
-        {getIconOrColor(false)} <h5 className='text-2xl ml-3'>{count}</h5>
+        {getIconOrColor(false)} <h5 className='text-2xl ml-2'>{count}</h5>
         </div>
         <hr/>
         <h3 className='text-xl'>{status[0].toUpperCase() + status.slice(1,status.length)}</h3>

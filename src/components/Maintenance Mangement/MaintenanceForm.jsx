@@ -75,9 +75,9 @@ function MaintenanceForm() {
     },[])
   return (
     <div className="bg-white rounded-lg shadow-md p-8 mx-auto max-w-2xl">
-      <h2 className="text-2xl font-bold text-center mb-6">Create Maintenance Issue</h2>
+      <h2 className="text-xl font-bold text-center mb-6">Create Maintenance Issue</h2>
         <div className="mb-6">
-          <label className="block text-gray-600 font-semibold text-lg mb-2" htmlFor="maintenance-type">
+          <label className="block text-gray-600 font-semibold text-sm mb-2" htmlFor="maintenance-type">
             Maintenance Type:
           </label>
           <select
@@ -94,7 +94,7 @@ function MaintenanceForm() {
         </div>
 
         <div className="mb-6">
-          <label className="block text-gray-600 font-semibold text-lg mb-2" htmlFor="maintenance-type">
+          <label className="block text-gray-600 font-semibold text-sm mb-2" htmlFor="maintenance-type">
             Department:
           </label>
           <select
@@ -111,7 +111,7 @@ function MaintenanceForm() {
         </div>
 
         <div className="mb-6">
-          <label className="block text-gray-600 font-semibold text-lg mb-2" htmlFor="description">
+          <label className="block text-gray-600 font-semibold text-sm mb-2" htmlFor="description">
             Description:
           </label>
           <textarea

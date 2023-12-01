@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectUserData } from '../../store/slice/userSlice';
 import RadioGroupComponent from '../Global/RadioGroupComponent';
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
-import { setOpen } from '../../store/slice/globalModal';
+import { setOpen, updateType } from '../../store/slice/globalModal';
 import { setPayload } from '../../store/slice/MaintenanceSlice/commentSlice';
 import GlobalModal from '../Global/GlobalModal';
 import VerifiedOutlinedIcon from '@mui/icons-material/VerifiedOutlined';
@@ -29,6 +29,7 @@ export default function MaintenanceIssueTable(props) {
   const handleComment = (maintenanceIssueId) => {
     console.log("msi ",maintenanceIssueId)
     dispatch(setOpen(true))
+    dispatch(updateType('comment'))
     dispatch(setPayload({name:"maintenanceIssue",value:maintenanceIssueId}))
   }
   return (
@@ -67,7 +68,7 @@ export default function MaintenanceIssueTable(props) {
               <div className='flex justify-center items-center'><StatusTab withIcon={true} status={row.status}/></div> : 
               <><RadioGroupComponent currentStatus={row.status} id={row.id} key={i}/> </> :
               <div className='flex justify-center items-center'><StatusTab status={row.status}/></div>}</TableCell>
-              {getUserRole() === 'HOD'?<TableCell align="center"><CheckboxComponent status={row.status}/></TableCell>:null}
+              {getUserRole() === 'HOD'?<TableCell align="center"><CheckboxComponent id={row.id} status={row.status}/></TableCell>:null}
               <TableCell align='center'><button onClick={(e) => handleComment(row.id)}><CommentOutlinedIcon fontSize='medium' sx={{ stroke: "#ffffff" }} /></button></TableCell>
             </TableRow>
           ))}
@@ -95,7 +96,7 @@ function StatusTab({status,withIcon}) {
       return 'bg-gradient-to-r from-red-400 to-red-600'
     }
   }
-  return <div className={`${withIcon ? 'w-[130px] h-[40px]' : 'w-[80px] h-[30px]'} p-2 border-2 rounded-md text-white flex justify-center items-center ${getColor()}`}>
+  return <div className={`${withIcon ? 'w-[130px] h-[40px]' : status === "Approval Pending"? 'p-1' :  'p-2 w-[80px] h-[30px]'} border-2 rounded-md text-white flex justify-center items-center ${getColor()}`}>
     {withIcon?<VerifiedOutlinedIcon style={{marginRight:"4px"}} fontSize='small'/>:null}
     <p className={`${withIcon ? "text-sm":'text-xs'} font-semibold`}>{status}</p>
   </div>
