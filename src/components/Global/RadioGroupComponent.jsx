@@ -42,7 +42,7 @@ export default function RadioGroupComponent({currentStatus,id}) {
         <FormControlLabel value="Progress" control={<Radio />} label="In Progress" />
         <FormControlLabel value="Pending" control={<Radio />} label="Pending" />
         <FormControlLabel value="Completed" control={<Radio />} label="Completed" />
-        <FormControlLabel value="Rejected" control={<Radio />} label="Rejected" />
+        <FormControlLabel value="Approval Pending" control={<Radio />} label="Approval Pending" />
       </RadioGroup>
     </FormControl>
   );

@@ -65,12 +65,14 @@ export const maintenanceStatusAndCountSlice = createSlice({
                 }
             })
             console.log('after update status and count result',result)
-            const total = result.find(r => r.status === 'Total')
-            const progress = result.find(r => r.status === 'Progress')
-            const completed = result.find(r => r.status === 'Completed')
-            const pending = result.find(r => r.status === 'Pending')
-            const rejected = result.find(r => r.status === 'Rejected')
-            state.data =[total,progress,pending,completed,rejected]
+            // const total = result.find(r => r.status === 'Total')
+            // const progress = result.find(r => r.status === 'Progress')
+            // const completed = result.find(r => r.status === 'Completed')
+            // const pending = result.find(r => r.status === 'Pending')
+            // const approvalPending = result.find(r => r.status === 'Approval Pending')
+            // const verified = result.find(r => r.status === 'Verified')
+            // state.data =[total,progress,pending,completed,verified,approvalPending]
+            state.data = [...result]
         }
     }
 })

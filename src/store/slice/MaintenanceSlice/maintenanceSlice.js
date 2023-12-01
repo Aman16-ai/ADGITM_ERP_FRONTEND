@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import { getAllMaintenanceIssues, updateMaintenaceIssue } from "../../../services/Maintenance";
+import { StarsTwoTone } from "@mui/icons-material";
 
 export const getAllMaintenanceIssuesThunk = createAsyncThunk('maintenance/getAllMaintenanceIssues',async(query,thunkApi) => {
     try {
@@ -28,27 +29,53 @@ export const maintenanceSlice = createSlice({
     initialState : {
         allData : [],
         data : [],
-        isLoading : false
+        isLoading : false,
+        filterKeys : {}
     },
     reducers : {
         updateCount : (state,action) => {
             state.data = {...state.data,[action.name]:state.data.name + action.value}
         },
+        updateIssueStatus : (state,action) => {
+            const id = action.payload.id
+            const newStatus = action.payload.newStatus
+            const result = state.data.map((d) => {
+                if(d.id === id) {
+                    return {...d,'status':newStatus}
+                }
+                return {...d}
+            })
+            console.log('result of update issue status',result)
+            state.data = [...result]
+
+        },
         applyFitler : (state,action) => {
             const filterName = action.payload.name
             const filterValue = action.payload.value
-            if(filterValue === 'default') {
+            state.filterKeys = {...state.filterKeys,[filterName]:filterValue}
+            console.log('filter key ',state.filterKeys)
+            if(filterValue === 'default' && filterName === 'department') {
+                state.filterKeys = {'status':state.filterKeys['status']}
+            }
+            if(filterValue === 'default' && filterName === 'status') {
+                state.filterKeys = {'department':state.filterKeys['department']}
+            }
+            console.log('default after filterkeys',state.filterKeys)
+            if(Object.keys(state.filterKeys).length === 0) {
                 console.log('running filter value ',filterValue,state.allData)
                 state.data = [...state.allData]
             }
-            else if(filterName === 'department') {
+            else if('department' in state.filterKeys && 'status' in state.filterKeys) {
                 console.log('running filter value ',filterValue,state.allData)
-                const result = state.allData.filter((d) => d.department.name.toLowerCase() === filterValue.toLowerCase())
+                const result = state.allData.filter((d) => (d.department.name.toLowerCase() === state.filterKeys.department.toLowerCase()) && (d.status.toLowerCase() === state.filterKeys.status.toLowerCase()))
                 state.data = result
                 console.log('filter result ',result)
             }
-            else {
-                state.data = state.allData.filter((d) => d.status.toLowerCase() === filterValue.toLowerCase())
+            else if('department' in state.filterKeys) {
+                state.data = state.allData.filter(d => d.department.name.toLowerCase() === state.filterKeys.department.toLowerCase())
+            }
+            else if('status' in state.filter) {
+                state.data = state.allData.filter((d) => d.status.toLowerCase() === state.filterKeys.toLowerCase())
             }
 
         }
@@ -71,7 +98,7 @@ export const maintenanceSlice = createSlice({
     }
 })
 
-export const {updateCount,applyFitler} = maintenanceSlice.actions
+export const {updateCount,applyFitler,updateIssueStatus} = maintenanceSlice.actions
 export const selectAllMaintenanceIssue = (state) => state.maintenance.data
 // export const selectIsAuthenticated = (state) => state.user.isAuthenticated
 export default maintenanceSlice.reducer
