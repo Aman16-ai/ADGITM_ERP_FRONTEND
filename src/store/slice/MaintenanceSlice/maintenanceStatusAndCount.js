@@ -18,7 +18,14 @@ export const maintenanceStatusAndCountThunk = createAsyncThunk('maintenanceStatu
 export const maintenanceStatusAndCountSlice = createSlice({
     name:"maintenanceStatusAndCount",
     initialState : {
-        data : [],
+        data : [
+            {status:"Total",count:0},
+            {status:"Pending",count:0},
+            {status:"Progress",count:0},
+            {status:"Completed",count:0},
+            {status:"Verified",count:0},
+            {status:"Approval Pending",count:0},
+        ],
         isLoading : false
     },
     reducers : {
@@ -28,12 +35,40 @@ export const maintenanceStatusAndCountSlice = createSlice({
     },
     extraReducers : {
         [maintenanceStatusAndCountThunk.fulfilled] : (state,action) => {
-            state.data = action.payload
-            let totalCount = 0
-            action.payload?.forEach(d => {
-                totalCount += d.count
-            });
-            state.data = [{'status':'Total','count':totalCount},...state.data]
+            if(action.payload?.length > 0) {
+                // state.data = action.payload
+                const updatedStatus = {}
+                action.payload.forEach((d) => {
+                    updatedStatus[d.status] = d.count
+                })
+                console.log('updatedStatus ------> ',updatedStatus)
+                let totalCount = 0
+                action.payload?.forEach(d => {
+                    totalCount += d.count
+                });
+                let data = [...state.data]
+                data = data.map((d) => {
+                    if(d['status'] === 'Total') {
+                        return {...d,'count':totalCount}
+                    }
+                    else if(d['status'] === 'Pending' && 'Pending' in updatedStatus) {
+                        return {...d,'count':updatedStatus['Pending']}
+                    }
+                    else if(d['status'] === 'Approval Pending' && 'Approval Pending' in updatedStatus) {
+                        return {...d,'count':updatedStatus['Approval Pending']}
+                    }
+                    else if(d['status'] === 'Progress' && 'Progress' in updatedStatus) {
+                        return {...d,'count':updatedStatus['Progress']}
+                    }
+                    else if(d['status'] === 'Completed' && 'Completed' in updatedStatus) {
+                        return {...d,'count':updatedStatus['Completed']}
+                    }
+                    return {...d}
+                })
+                console.log('total count ---> ',totalCount)
+                state.data = [...data]
+                console.log('state.data',state.data)
+            }
             // const total = state.data.find(r => r?.status === 'Total')
             // const progress = state.data.find(r => r?.status === 'Progress')
             // const completed = state.data.find(r => r?.status === 'Completed')

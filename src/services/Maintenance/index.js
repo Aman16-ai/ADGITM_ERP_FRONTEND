@@ -112,3 +112,19 @@ export const getAllMaintenanceComment = async(maintenanceIssueId) => {
   const data = await response.json()
   return data?.Response
 }
+
+export const createMaintenanceType = async (payload)=> {
+  const response = await fetch(GET_ALL_MAINTENANCE_TYPES,{
+      method:"POST",
+      headers : {
+          'content-type':"application/json"
+      },
+      body : JSON.stringify(payload)
+  })
+  if(response.status !== 200) {
+      console.log("create Maintenance type response",response.status)
+      throw new Error("Failed to create Maintenance Type")
+  }
+  const data = await response.json()
+  return data?.Response
+}

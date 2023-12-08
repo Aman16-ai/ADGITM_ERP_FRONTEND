@@ -28,7 +28,7 @@ const UserForm = () => {
     try {
       const departmentList = await getAllDeparments()
       setDeparments(departmentList)
-      console.log('deparmtent service',departmentList[0].id)
+      console.log('deparmtent service',departmentList)
       setFormData({...formData,department:departmentList[0].id})
     }
     catch(err) {
