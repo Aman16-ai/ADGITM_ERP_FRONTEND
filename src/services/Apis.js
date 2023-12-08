@@ -1,5 +1,5 @@
 // const BASE_URL = "http://127.0.0.1:8000"
-const BASE_URL = "http://aman6523.pythonanywhere.com"
+const BASE_URL = "https://aman6523.pythonanywhere.com"
 
 // Authentication and user apiendpoints
 export const GET_USER_DETAILS = BASE_URL + "/account/user"
