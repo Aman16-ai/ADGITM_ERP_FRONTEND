@@ -35,9 +35,14 @@ export const maintenanceStatusAndCountSlice = createSlice({
     },
     extraReducers : {
         [maintenanceStatusAndCountThunk.fulfilled] : (state,action) => {
-            if(action.payload?.length > 0) {
+            
                 // state.data = action.payload
-                const updatedStatus = {}
+                const updatedStatus = {
+                    'Pending':0,
+                    'Progress':0,
+                    'Completed':0,
+                    'Approval Pending':0
+                }
                 action.payload.forEach((d) => {
                     updatedStatus[d.status] = d.count
                 })
@@ -68,7 +73,7 @@ export const maintenanceStatusAndCountSlice = createSlice({
                 console.log('total count ---> ',totalCount)
                 state.data = [...data]
                 console.log('state.data',state.data)
-            }
+            
             // const total = state.data.find(r => r?.status === 'Total')
             // const progress = state.data.find(r => r?.status === 'Progress')
             // const completed = state.data.find(r => r?.status === 'Completed')
