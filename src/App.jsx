@@ -22,6 +22,8 @@ import GlobalModal from './components/Global/GlobalModal';
 import AddUser from './page/Faculty Management/AddUser';
 import NotFound from './page/NotFound';
 import ManageUsers from './page/Faculty Management/ManageUsers';
+import ManageDepartments from './page/DepartmentManagement/ManageDepartments';
+import ManageMaintenance from './page/Maintenance Mangement/ManageMaintenance';
 
 
 function App() {
@@ -43,6 +45,10 @@ function App() {
           element : <CreateMaintenance/>
         },
         {
+          path:"/manageMaintenance",
+          element:<ManageMaintenance/>
+        },
+        {
           path : "/allMaintenance",
           element : <AllMaintenance/>
         },
@@ -53,6 +59,10 @@ function App() {
         {
           path:"/AddUser",
           element:<AddUser/>
+        },
+        {
+          path:"/manageDepartment",
+          element:<ManageDepartments/>
         }
       ]
     },

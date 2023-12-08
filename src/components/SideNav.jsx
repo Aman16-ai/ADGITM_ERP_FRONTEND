@@ -13,6 +13,7 @@ import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlin
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
 import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
+import DomainOutlinedIcon from '@mui/icons-material/DomainOutlined';
 import { useSelector } from 'react-redux';
 import { selectUserData } from '../store/slice/userSlice';
 import { getUserRole } from '../utils/authUtils';
@@ -34,7 +35,7 @@ function SideNav() {
   return (
     <div
       className={`sidenav transition-all duration-300 bg-white flex flex-col items-center ${
-        isHovered ? 'w-64 h-full shadow-lg' : 'w-16 h-full shadow-sm'
+        isHovered ? 'w-56 h-full shadow-lg' : 'w-16 h-full shadow-sm'
       }`}
       onMouseEnter={toggleHover}
       onMouseLeave={toggleHover}
@@ -53,7 +54,7 @@ function SideNav() {
       {/* <hr className="my-4 border-t border-gray-300" /> */}
       <ul className="menu-list flex flex-col items-center justify-center">
         {getUserRole(user) === 'Admin' ? <li className='mt-6 flex flex-col justify-center items-center'>
-          {isHovered ? <Accordion sx={{width:"230px",boxShadow:"none"}}>
+          {isHovered ? <Accordion sx={{width:"210px",boxShadow:"none"}}>
           <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -81,9 +82,32 @@ function SideNav() {
           </Accordion>:<PermIdentityOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />}
         </li>:null}
 
+        {getUserRole(user) === 'Admin'?
+         <li className={`${isHovered?'mt-2':'mt-6'} flex flex-col justify-center items-center`}>
+         {isHovered ? <Accordion sx={{width:"210px",boxShadow:"none"}}>
+         <AccordionSummary
+         expandIcon={<ExpandMoreIcon />}
+         aria-controls="panel1a-content"
+         id="panel1a-header"
+       >
+         <DomainOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
+         <Typography sx={{marginLeft:"5px"}}>Department</Typography>
+       </AccordionSummary>
+       
+       <AccordionDetails>
+       <NavLink className={({isActive}) => `${isActive ? "text-blue-700" : "text-black"}`} to={"/manageDepartment"}>
+       <div className='flex'>
+       <ManageAccountsOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
+       <Typography sx={{marginLeft:"5px"}}>Manage Department</Typography>
+       </div>
+       </NavLink>
+       </AccordionDetails>
+         </Accordion>:<DomainOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />}
+       </li>
+        :null}
 
-        {getUserRole(user) !== 'MM' ?<><li className={`${isHovered?'mt-2':'mt-6'} flex flex-col justify-center items-center`}>
-          {isHovered ? <Accordion sx={{width:"230px",boxShadow:"none"}}>
+        {getUserRole(user) !== 'MM' ?<li className={`${isHovered?'mt-2':'mt-6'} flex flex-col justify-center items-center`}>
+          {isHovered ? <Accordion sx={{width:"210px",boxShadow:"none"}}>
           <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -101,18 +125,19 @@ function SideNav() {
         </NavLink>
         </AccordionDetails>
         <AccordionDetails>
-        <NavLink className={({isActive}) => `${isActive ? "text-blue-700" : "text-black"}`} to={"/manageFaculty"}>
-        <div className='flex'>
-        <ManageAccountsOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
-        <Typography sx={{marginLeft:"5px"}}>Manage Maintenance</Typography>
-        </div>
-        </NavLink>
-        </AccordionDetails></>:null}
+       <NavLink className={({isActive}) => `${isActive ? "text-blue-700" : "text-black"}`} to={"/manageMaintenance"}>
+       <div className='flex'>
+       <ManageAccountsOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />
+       <Typography sx={{marginLeft:"5px"}}>Manage Maintenance</Typography>
+       </div>
+       </NavLink>
+       </AccordionDetails></>
+        :null}
           </Accordion>:<HomeWorkOutlinedIcon  sx={{ stroke: "#ffffff", strokeWidth: 0.7 }} fontSize='medium' />}
-        </li></>:null}
+        </li>:null}
       </ul>
 
-      {isHovered ? <button onClick={handleLogout} className={`mt-auto mb-[15px] bg-blue-500 w-48 rounded-md text-white h-10 rounded-2xl}`}><LogoutIcon/> Logout</button> : <div className='mt-auto mb-[15px] shadow-md w-12 h-10 flex justify-center items-center rounded-md'><LogoutIcon/></div>}
+  {isHovered ? <button onClick={handleLogout} className={`mt-auto mb-[15px] bg-blue-500 w-48 rounded-md text-white h-10 rounded-2xl}`}><LogoutIcon/> Logout</button> : <div className='mt-auto mb-[15px] shadow-md w-12 h-10 flex justify-center items-center rounded-md'><LogoutIcon/></div>}
     </div>
   );
 }
